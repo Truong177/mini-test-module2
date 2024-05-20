@@ -16,19 +16,33 @@ public class Main {
         underAverage(employees, averageSalary);
         long totalPartTimeSalary = calculateTotalPartTimeSalary(employees);
         System.out.println("Tổng lương phải trả cho tất cả các nhân viên bán thời gian là: " + totalPartTimeSalary);
-        System.out.println("Nhân viên toàn thời gian sắp xếp theo lương tăng dần:");
         softEmployeeFullTime(employees);
+        System.out.println("Danh sách nhân viên toàn thời gian sau khi sắp xếp:");
+        for (Employee employee : employees) {
+            if (employee instanceof EmployeeFullTime) {
+                EmployeeFullTime fullTimeEmployee = (EmployeeFullTime) employee;
+                System.out.println(fullTimeEmployee.getName() + " - Lương: " + fullTimeEmployee.getSalary());
+            }
+        }
     }
 
     private static void softEmployeeFullTime(Employee[] employees) {
         System.out.println("Danh sách nhân viên toàn thời gian sau khi sắp xếp:");
-        for (Employee employee : employees) {
-            if (employee instanceof EmployeeFullTime) {
-                EmployeeFullTime employeeFullTime = (EmployeeFullTime) employee;
-                System.out.println(employeeFullTime.getName() + " - Lương: " + employeeFullTime.getSalary());
+        for (int i = 0; i < employees.length - 1; i++) {
+            for (int j = 0; j < employees.length - i - 1; j++) {
+                if (employees[j] instanceof EmployeeFullTime && employees[j + 1] instanceof EmployeeFullTime) {
+                    EmployeeFullTime emp1 = (EmployeeFullTime) employees[j];
+                    EmployeeFullTime emp2 = (EmployeeFullTime) employees[j + 1];
+                    if (emp1.getSalary() > emp2.getSalary()) {
+                        Employee temp = employees[j];
+                        employees[j] = employees[j + 1];
+                        employees[j + 1] = temp;
+                    }
+                }
             }
         }
     }
+
 
     private static long calculateTotalPartTimeSalary(Employee[] employees) {
         long totalPartTimeSalary = 0;
