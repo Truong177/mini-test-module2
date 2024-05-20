@@ -27,7 +27,6 @@ public class Main {
     }
 
     private static void softEmployeeFullTime(Employee[] employees) {
-        System.out.println("Danh sách nhân viên toàn thời gian sau khi sắp xếp:");
         for (int i = 0; i < employees.length - 1; i++) {
             for (int j = 0; j < employees.length - i - 1; j++) {
                 if (employees[j] instanceof EmployeeFullTime && employees[j + 1] instanceof EmployeeFullTime) {
